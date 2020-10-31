@@ -28,8 +28,10 @@ def generate_arr_elements(n, k, lower_bound, upper_bound): # 0 ≤ elements < 2^
 
 def generate_multiple_tests(lower_bound_testcase, upper_bound_testcase, num_tests, filename, \
                             low_ai=0, high_ai=4095):
-    ns = np.random.randint(low=lower_bound_testcase, high=upper_bound_testcase, size=num_tests)
     f = open(filename, "a")
+    print(f"10 tests from {lower_bound_testcase} to {upper_bound_testcase}")
+    f.write(f"10 tests from {lower_bound_testcase} to {upper_bound_testcase}\n")
+    ns = np.random.randint(low=lower_bound_testcase, high=upper_bound_testcase, size=num_tests)
     for i in range(len(ns)):
         k = np.random.randint(low=1, high=ns[i]+1) 
         arr = generate_arr_elements(ns[i], k, low_ai, high_ai)
@@ -45,9 +47,5 @@ def generate_multiple_tests(lower_bound_testcase, upper_bound_testcase, num_test
 if __name__ == "__main__":
     distributions = [0, 100, 10000, 20000] # 1 ≤ n ≤ 2×10^4
     filename = "result.txt"
-    f = open(filename, "a")
     for i in range(len(distributions) - 1):
-        print("10 tests from {} to {}".format(distributions[i] + 1, distributions[i+1]))
-        f.write("10 tests from {} to {}".format(distributions[i] + 1, distributions[i+1]))
         generate_multiple_tests(distributions[i] + 1, distributions[i+1], 10, filename)
-    f.close()
